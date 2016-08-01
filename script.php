@@ -1,7 +1,7 @@
+<?php
 /*-----------------------------------------------------------------------------------*/
 /* My Custom --Vishal Dubey
 /*-----------------------------------------------------------------------------------*/
-
 function cat_chk($post_ID){
 	$categories = get_the_category( $post_ID );
 	foreach($categories as $cat)
@@ -20,21 +20,18 @@ function cat_chk($post_ID){
 					$to=$user->user_email;
 					$sub="MCR World -".$title;
 					$msg=$content."<br><br><br><a href='".$link."'><strong>Read More</strong></a>"  ;
-					
-					$headers = "MIME-Version: 1.0" . "\r\n";
-					$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-					$headers .= 'From:info@mcrworld.com' . "\r\n";
+					$headers[] = 'From:vishal.du123@gmail.com ' . "\r\n";
+					$headers[] = 'Content-Type: text/html; charset=UTF-8';
 					/*echo"<hr><div style='display:block;background:#fff444'>##1.".$to."</div>
 					<div style='display:block;background:#999fff'>##2.".$sub."</div>
 					<div style='display:block;background:#fff444'>##3.".$msg."</div>
 					<div style='display:block;background:#999fff'>##4.".$headers."</div>
 					<hr>";*/
-					
-					mail($to,$sub,$msg,$headers);
+					wp_mail($to,$sub,$msg,$headers );
 				}
 			}
 		}
 	}
 //die();	
 }
-add_action ( 'publish_post', 'cat_chk' );
+add_action ( 'publish_post', 'cat_chk',2);
